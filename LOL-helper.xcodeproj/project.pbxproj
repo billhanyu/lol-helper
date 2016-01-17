@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0030848A1C4B1AED00080823 /* NexusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003084891C4B1AED00080823 /* NexusViewController.swift */; };
+		003D44861C4BE16B00316D98 /* PlayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003D44851C4BE16B00316D98 /* PlayerCell.swift */; };
 		00F6D7571C4582FA008C6A10 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F6D7561C4582FA008C6A10 /* AppDelegate.swift */; };
 		00F6D7591C4582FA008C6A10 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F6D7581C4582FA008C6A10 /* SearchViewController.swift */; };
-		00F6D75B1C4582FA008C6A10 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F6D75A1C4582FA008C6A10 /* SecondViewController.swift */; };
 		00F6D75E1C4582FA008C6A10 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00F6D75C1C4582FA008C6A10 /* Main.storyboard */; };
 		00F6D7601C4582FA008C6A10 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00F6D75F1C4582FA008C6A10 /* Assets.xcassets */; };
 		00F6D7631C4582FA008C6A10 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00F6D7611C4582FA008C6A10 /* LaunchScreen.storyboard */; };
@@ -92,10 +93,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		003084891C4B1AED00080823 /* NexusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NexusViewController.swift; sourceTree = "<group>"; };
+		003D44851C4BE16B00316D98 /* PlayerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerCell.swift; sourceTree = "<group>"; };
 		00F6D7531C4582FA008C6A10 /* LOL-helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LOL-helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		00F6D7561C4582FA008C6A10 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		00F6D7581C4582FA008C6A10 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		00F6D75A1C4582FA008C6A10 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		00F6D75D1C4582FA008C6A10 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		00F6D75F1C4582FA008C6A10 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		00F6D7621C4582FA008C6A10 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -136,10 +138,11 @@
 		00F6D7551C4582FA008C6A10 /* LOL-helper */ = {
 			isa = PBXGroup;
 			children = (
+				003084891C4B1AED00080823 /* NexusViewController.swift */,
+				003D44851C4BE16B00316D98 /* PlayerCell.swift */,
 				00F6D7561C4582FA008C6A10 /* AppDelegate.swift */,
 				00F6D7581C4582FA008C6A10 /* SearchViewController.swift */,
 				00F6D7871C4584AE008C6A10 /* AppFunctions.swift */,
-				00F6D75A1C4582FA008C6A10 /* SecondViewController.swift */,
 				00F6D75C1C4582FA008C6A10 /* Main.storyboard */,
 				00F6D75F1C4582FA008C6A10 /* Assets.xcassets */,
 				00F6D7611C4582FA008C6A10 /* LaunchScreen.storyboard */,
@@ -294,10 +297,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00F6D75B1C4582FA008C6A10 /* SecondViewController.swift in Sources */,
 				00F6D7571C4582FA008C6A10 /* AppDelegate.swift in Sources */,
 				00F6D7591C4582FA008C6A10 /* SearchViewController.swift in Sources */,
+				0030848A1C4B1AED00080823 /* NexusViewController.swift in Sources */,
 				00F6D7881C4584AE008C6A10 /* AppFunctions.swift in Sources */,
+				003D44861C4BE16B00316D98 /* PlayerCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

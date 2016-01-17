@@ -38,7 +38,7 @@ class SearchViewController: UIViewController {
                     }
                     else {
                         let dictionary = parseJSON(response.data!)!
-                        let unspacedName = name.stringByReplacingOccurrencesOfString(" ", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+                        let unspacedName = name.stringByReplacingOccurrencesOfString(" ", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil).lowercaseString
                         let dict = dictionary[unspacedName] as! [String: AnyObject]
                         
                         self.ID = String(dict["id"]! as! Int)
