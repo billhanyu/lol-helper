@@ -112,7 +112,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wins" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="57w-QQ-LIX">
-                                            <rect key="frame" x="324" y="8" width="247.5" height="19.5"/>
+                                            <rect key="frame" x="317" y="8" width="254.5" height="19.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
@@ -143,7 +143,7 @@
                                         <constraint firstAttribute="bottomMargin" secondItem="jXZ-0r-H0t" secondAttribute="bottom" constant="3" id="dt8-5I-JjB"/>
                                         <constraint firstItem="Jz7-x8-0a3" firstAttribute="top" secondItem="SpO-u7-cG8" secondAttribute="top" id="eD5-4o-Z8s"/>
                                         <constraint firstItem="d9L-mo-WWB" firstAttribute="leading" secondItem="Jz7-x8-0a3" secondAttribute="leading" id="eKv-kq-3Ld"/>
-                                        <constraint firstItem="57w-QQ-LIX" firstAttribute="leading" secondItem="Jz7-x8-0a3" secondAttribute="trailing" constant="26.5" id="pNX-Ii-7ho"/>
+                                        <constraint firstItem="57w-QQ-LIX" firstAttribute="leading" secondItem="Jz7-x8-0a3" secondAttribute="trailing" constant="20" id="pNX-Ii-7ho"/>
                                         <constraint firstAttribute="topMargin" secondItem="SpO-u7-cG8" secondAttribute="top" id="w6z-iE-rzy"/>
                                     </constraints>
                                 </tableViewCellContentView>

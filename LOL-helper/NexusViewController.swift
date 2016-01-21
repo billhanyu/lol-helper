@@ -15,10 +15,11 @@ class NexusViewController: UITableViewController {
     var playerIDs: [String] = ["73659824", "72269897", "69993043", "30115863", "71721525", "72900212", "73719567", "73529976", "73339118", "73549812"]
     var playerNames: [String] = ["SammieNsanity", "pinkwolf109", "LOVEOOMR", "Khongkien", "lsettonl", "chasingagoal", "crystaleye22", "SlipandRIP", "CA1L3R87", "hazems"]
     
-    var levelLabelTexts: [String] = ["73659824", "72269897", "69993043", "30115863", "71721525", "72900212", "73719567", "73529976", "73339118", "73549812"]
-    var winsLabelTexts: [String] = ["SammieNsanity", "pinkwolf109", "LOVEOOMR", "Khongkien", "lsettonl", "chasingagoal", "crystaleye22", "SlipandRIP", "CA1L3R87", "hazems"]
+    var levelLabelTexts: [String] = ["Level: ", "Level: ", "Level: ", "Level: ", "Level: ", "Level: ", "Level: ", "Level: ", "Level: ", "Level: "]
+    var winsLabelTexts: [String] = ["Wins: ", "Wins: ", "Wins: ", "Wins: ", "Wins: ", "Wins: ", "Wins: ", "Wins: ", "Wins: ", "Wins: "]
     
     let RATE_LIMIT = 5
+    let dataGroup = dispatch_group_create()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +32,6 @@ class NexusViewController: UITableViewController {
             levelLabelTexts[i] = ""
             winsLabelTexts[i] = ""
         }
-        let dataGroup = dispatch_group_create()
         
         print("populating")
         
@@ -41,51 +41,70 @@ class NexusViewController: UITableViewController {
             let ID = self.playerIDs[i]
             let escapedName = name.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
             
-            dispatch_group_enter(dataGroup)
-            print(i)
-            Alamofire.request(.GET, "https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/\(escapedName)?api_key=f50c97b7-6a8c-4d81-aafc-4ef4e4fa1571")
-                .responseJSON { response in
-                    if response.response?.statusCode != 200 {
-                        print(i, response.response?.statusCode)
-                    }
-                    else {
-                        let dictionary = parseJSON(response.data!)!
-                        let unspacedName = name.stringByReplacingOccurrencesOfString(" ", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil).lowercaseString
-                        let dict = dictionary[unspacedName] as! [String: AnyObject]
-                        
-                        let level = "Level: " + String(dict["summonerLevel"]! as! Int)
-                        self.levelLabelTexts[i] = level
-                        print(i, self.levelLabelTexts)
-                        dispatch_group_leave(dataGroup)
-                    }
-            }
-            /*
-            dispatch_group_enter(dataGroup)
-            Alamofire.request(.GET, "https://na.api.pvp.net/api/lol/na/v1.3/stats/by-summoner/\(ID)/summary?season=SEASON2015&api_key=f50c97b7-6a8c-4d81-aafc-4ef4e4fa1571").responseJSON { response in
-                if response.response?.statusCode == 200 {
-                    let dictionary = parseJSON(response.data!)!
-                    let summaries = dictionary["playerStatSummaries"]! as! [AnyObject]
-                    
-                    for typeOfStats in summaries {
-                        let stat = typeOfStats as! [String: AnyObject]
-                        let type = String(stat["playerStatSummaryType"]!)
-                        
-                        if  type == "Unranked" {
-                            let winsString = String(stat["wins"]! as! Int)
-                            
-                            let wins = "Wins: " + winsString
-                            self.winsLabelTexts[i] = wins
-                            dispatch_group_leave(dataGroup)
-                        }
-                    }
-                }
-            }*/
+            fetchLevelData(i, name: name, escapedName: escapedName)
+            fetchWinsData(i, ID: ID, escapedName: escapedName)
         }
         
         dispatch_group_notify(dataGroup, dispatch_get_main_queue(), {
             print("before reloading", self.levelLabelTexts)
             self.tableView.reloadData()
         })
+    }
+    
+    func fetchLevelData(i: Int, name: String, escapedName: String) {
+        dispatch_group_enter(dataGroup)
+        print(i)
+        Alamofire.request(.GET, "https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/\(escapedName)?api_key=f50c97b7-6a8c-4d81-aafc-4ef4e4fa1571")
+            .responseJSON { response in
+            if response.response?.statusCode != 200 {
+                print(i, response.response?.statusCode)
+                delay(seconds: 0.33, completion: {
+                    self.fetchLevelData(i, name: name, escapedName: escapedName)
+                    dispatch_group_leave(self.dataGroup)
+                })
+            }
+            else {
+                let dictionary = parseJSON(response.data!)!
+                let unspacedName = name.stringByReplacingOccurrencesOfString(" ", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil).lowercaseString
+                let dict = dictionary[unspacedName] as! [String: AnyObject]
+                
+                let level = "Level: " + String(dict["summonerLevel"]! as! Int)
+                self.levelLabelTexts[i] = level
+                print(i, self.levelLabelTexts)
+                dispatch_group_leave(self.dataGroup)
+            }
+        }
+    }
+    
+    func fetchWinsData(i: Int, ID: String, escapedName: String) {
+        
+        dispatch_group_enter(dataGroup)
+        Alamofire.request(.GET, "https://na.api.pvp.net/api/lol/na/v1.3/stats/by-summoner/\(ID)/summary?season=SEASON2015&api_key=f50c97b7-6a8c-4d81-aafc-4ef4e4fa1571").responseJSON { response in
+            if response.response?.statusCode != 200 {
+                print(i, response.response?.statusCode)
+                delay(seconds: 0.33, completion: {
+                    self.fetchWinsData(i, ID: ID, escapedName: escapedName)
+                    dispatch_group_leave(self.dataGroup)
+                })
+            }
+            else {
+                let dictionary = parseJSON(response.data!)!
+                let summaries = dictionary["playerStatSummaries"]! as! [AnyObject]
+        
+                for typeOfStats in summaries {
+                    let stat = typeOfStats as! [String: AnyObject]
+                    let type = String(stat["playerStatSummaryType"]!)
+        
+                    if  type == "Unranked" {
+                        let winsString = String(stat["wins"]! as! Int)
+        
+                        let wins = "Wins: " + winsString
+                        self.winsLabelTexts[i] = wins
+                        dispatch_group_leave(self.dataGroup)
+                    }
+                }
+            }
+        }
     }
 
     // MARK: - Table view data source
@@ -125,7 +144,6 @@ class NexusViewController: UITableViewController {
 extension NexusViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        
         if let name = searchBar.text {
             let escapedName = name.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
             Alamofire.request(.GET, "https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/\(escapedName)?api_key=f50c97b7-6a8c-4d81-aafc-4ef4e4fa1571")
